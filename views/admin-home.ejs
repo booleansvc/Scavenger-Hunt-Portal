@@ -3,6 +3,14 @@
 <div class="admin-console">
   <h1>Admin Console</h1>
   <div>
+    <a href="#users-teams">Users & Teams</a>
+    <a href="#Questions">Questions</a>
+  </div>
+  <div id="Questions">
+    <h2>Questions</h2>
+  </div>
+  <div id="users-teams">
+    <h2>Users & Teams</h2>
     <h5>Number of users: <%= users.length %></h5>
     <h5>
       Teams: <% const teams = (users.length-1)%5 > 0 ?
@@ -30,7 +38,7 @@
             value="<%=users[i].username%>"
           />
           <h5>Team Number</h5>
-          <select name="<%= users[i]._id %>">
+          <select name="<%= users[i].username %>">
             <% for (var j = 0; j < teams; j++) { if (users[i].group === 'team-'
             + (j+1)) { %>
             <option value="<%= 'team-' + (j+1) %>" selected>
@@ -46,6 +54,39 @@
     <% } %>
     <button class="btn btn-lg btn-danger mt-3">Submit</button>
   </form>
+  <!-- <div>
+    <h2>Formatted Users Table</h2>
+    <table>
+      <tr>
+        <th>Number</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Course</th>
+        <th>Year</th>
+        <th>Roll No</th>
+        <th>Username</th>
+        <th>Team</th>
+      </tr>
+      <% for (var i = 0; i < users.length; i++) { %>
+      <tr>
+        <td><%= i + 1 %></td>
+        <td><%= users[i].fullName %></td>
+        <td><%= users[i].email %></td>
+        <td><%= users[i].phone %></td>
+        <td><%= users[i].course %></td>
+        <td><%= users[i].year %></td>
+        <td><%= users[i].rollNo %></td>
+        <td><%= users[i].username %></td>
+        <td><%= users[i].group %></td>
+      </tr>
+      <% } %>
+    </table>
+    <button class="btn btn-info text-light mt-3 btn-lg" id="csv-btn">
+      Download CSV
+    </button>
+    <script src="js/csv.js"></script>
+  </div> -->
 </div>
 
 <%- include("partials/footer") %>

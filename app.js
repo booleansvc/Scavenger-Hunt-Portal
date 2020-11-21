@@ -8,9 +8,10 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const session = require("express-session");
 const passportLocalMongoose = require("passport-local-mongoose");
-const courses = require("./seeds/courses");
 
+const courses = require("./seeds/courses");
 const userSchema = require("./models/user");
+const teamSchema = require("./models/team");
 
 require("dotenv").config();
 
@@ -38,6 +39,7 @@ app.use(passport.session());
 mongoose.connect(process.env.MONGO_DB_SERVER, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  useFindAndModify: false,
 });
 
 const db = mongoose.connection;
@@ -51,6 +53,7 @@ mongoose.set("useCreateIndex", true);
 userSchema.plugin(passportLocalMongoose);
 
 const User = new mongoose.model("User", userSchema);
+const Team = new mongoose.model("Team", teamSchema);
 
 passport.use(User.createStrategy());
 
@@ -144,7 +147,31 @@ app.get("/admin-home", (req, res) => {
 });
 
 app.post("/admin-home", (req, res) => {
-  console.log(req.body);
+  User.find({}, async (err, users) => {
+    if (err) {
+      console.log(err);
+    } else {
+      for (var i = 0; i < users.length; i++) {
+        const username = users[i].username;
+        await User.findOneAndUpdate(
+          {
+            username: username,
+          },
+          {
+            group: req.body[username],
+          },
+          {
+            returnNewDocument: false,
+          },
+          (err, result) => {
+            if (err) {
+              console.log(err);
+            }
+          }
+        );
+      }
+    }
+  });
 });
 
 app.listen(process.env.PORT || 3000, (req, res) => {

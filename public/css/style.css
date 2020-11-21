@@ -131,6 +131,30 @@ select option {
   border-radius: 20px;
 }
 
+.admin-console > div {
+  margin: 50px auto;
+}
+
+.admin-console table {
+  border: solid 1px var(--color-5);
+  padding: 5px;
+  width: 100%;
+  border-radius: 20px;
+}
+
+.admin-console tr {
+  padding: 5px;
+}
+
+tr td:first-child,
+th {
+  text-align: center;
+}
+
+td {
+  padding: 5px 10px;
+}
+
 .admin-console h1 {
   text-align: center;
   margin-bottom: 15px;
@@ -166,4 +190,3 @@ input:disabled {
 .user-box h5 {
   margin: 5px 0;
 }
-
