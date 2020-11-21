@@ -1,0 +1,51 @@
+<%- include("partials/header") %>
+
+<div class="admin-console">
+  <h1>Admin Console</h1>
+  <div>
+    <h5>Number of users: <%= users.length %></h5>
+    <h5>
+      Teams: <% const teams = (users.length-1)%5 > 0 ?
+      Math.floor((users.length-1)/5) + 1 : Math.floor((users.length-1)/5); %>
+      <%= teams %>
+    </h5>
+  </div>
+  <form action="/admin-home" class="row" method="post">
+    <% for ( var i = 0; i < users.length; i++) {%>
+    <div class="col-lg-3 col-md-4 user-col">
+      <div class="user-box">
+        <h2><%= users[i].fullName %></h2>
+        <p><%= users[i].course %></p>
+        <p>Year: <%= users[i].year %></p>
+        <p><%= users[i].username %></p>
+        <p><%= users[i].email %></p>
+        <p><%= users[i].username %></p>
+        <p><%= users[i].phoneNumber %></p>
+        <div>
+          <input
+            type="text"
+            name="username"
+            id="username"
+            disabled
+            value="<%=users[i].username%>"
+          />
+          <h5>Team Number</h5>
+          <select name="<%= users[i]._id %>">
+            <% for (var j = 0; j < teams; j++) { if (users[i].group === 'team-'
+            + (j+1)) { %>
+            <option value="<%= 'team-' + (j+1) %>" selected>
+              Team <%= j+1 %>
+            </option>
+            <% } else { %>
+            <option value="<%= 'team-' + (j+1) %>">Team <%= j+1 %></option>
+            <% } %> <% } %>
+          </select>
+        </div>
+      </div>
+    </div>
+    <% } %>
+    <button class="btn btn-lg btn-danger mt-3">Submit</button>
+  </form>
+</div>
+
+<%- include("partials/footer") %>

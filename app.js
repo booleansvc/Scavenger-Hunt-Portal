@@ -8,9 +8,9 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const session = require("express-session");
 const passportLocalMongoose = require("passport-local-mongoose");
+const courses = require("./seeds/courses");
 
 const userSchema = require("./models/user");
-const { isBuffer } = require("util");
 
 require("dotenv").config();
 
@@ -104,7 +104,7 @@ app
       {
         username: req.body.username,
         fullName: req.body.fullName,
-        course: req.body.course,
+        course: courses[req.body.course],
         year: req.body.year,
         rollNo: req.body.rollNo,
         phoneNumber: req.body.phone,
@@ -127,7 +127,25 @@ app
 
 app.get("/user-home", (req, res) => {});
 
-app.get("/admin-home", (req, res) => {});
+app.get("/admin-home", (req, res) => {
+  if (req.isAuthenticated() && req.user.admin === true) {
+    const allUsers = User.find({}, (err, users) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.render("admin-home", {
+          users: users,
+        });
+      }
+    });
+  } else {
+    res.render("login");
+  }
+});
+
+app.post("/admin-home", (req, res) => {
+  console.log(req.body);
+});
 
 app.listen(process.env.PORT || 3000, (req, res) => {
   console.log("Server Started.");

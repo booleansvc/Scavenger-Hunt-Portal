@@ -10,6 +10,7 @@ const userSchema = mongoose.Schema({
   phoneNumber: Number,
   rollNo: Number,
   admin: Boolean,
+  group: String,
 });
 
 module.exports = userSchema;

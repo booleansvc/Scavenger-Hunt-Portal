@@ -123,3 +123,47 @@ select {
 select option {
   background-color: transparent;
 }
+
+.admin-console {
+  background-color: white;
+  padding: 30px;
+  margin: 40px auto;
+  border-radius: 20px;
+}
+
+.admin-console h1 {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.row {
+  box-sizing: border-box;
+}
+
+.user-col {
+  padding: 2.5px;
+  margin: 0;
+}
+
+.user-box {
+  border-radius: 5px;
+  border: var(--color-1) 2px solid;
+  padding: 20px;
+  height: 100%;
+}
+
+.user-box p {
+  margin: 2.5px 0;
+}
+
+input:disabled {
+  width: 100%;
+  padding: 0 5px;
+  border: solid gray 1px;
+  border-radius: 5px;
+}
+
+.user-box h5 {
+  margin: 5px 0;
+}
+
