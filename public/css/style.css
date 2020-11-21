@@ -1,0 +1,125 @@
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400&family=Roboto:wght@100;300;400;500;700&display=swap");
+
+:root {
+  --color-1: #7579e7;
+  --color-2: #9ab3f5;
+  --color-3: #a3d8f4;
+  --color-4: #b9fffc;
+  --color-5: #1a1c20;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
+  background-color: var(--color-2);
+  box-sizing: border-box;
+}
+
+.pseudo-footer {
+  text-align: center;
+}
+
+footer {
+  text-align: center;
+  width: 100%;
+  padding: 40px 0;
+  bottom: 0;
+  height: 100px;
+  margin: 0;
+  background-color: var(--color-5);
+  color: #fff;
+}
+
+.intro {
+  padding: 30px;
+  background-color: var(--color-1);
+  border-radius: 10px;
+  width: 50%;
+  text-align: center;
+  margin: 10% auto 5%;
+  color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+
+.intro p {
+  margin-top: 10px;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Comfortaa", Arial, Helvetica, sans-serif;
+  font-weight: 500;
+}
+
+.action-buttons button {
+  margin: 20px 0 0;
+  padding: 10px 20px;
+  border: 0;
+}
+
+@media (max-width: 768px) {
+  .intro {
+    width: 80%;
+  }
+}
+
+@media (max-width: 576px) {
+  .intro {
+    width: 90%;
+  }
+}
+
+.input {
+  margin: 35px 0;
+  width: 100%;
+  text-align: left;
+  position: relative;
+}
+
+.input input {
+  border: transparent solid 2px;
+  border-bottom: var(--color-3) solid 2px;
+  font-size: 1.2rem;
+  width: 100%;
+  background: transparent;
+  height: 25px;
+  padding: 20px 5px;
+  transition: 0.3s ease-in-out;
+  color: white;
+  border-radius: 10px;
+}
+
+.input label {
+  padding: 0 7px;
+  font-size: 1.2rem;
+}
+
+.intro .input input:focus {
+  border: var(--color-3) solid 2px;
+}
+
+.intro .input input::placeholder {
+  color: white;
+}
+
+.select {
+  padding: 0 5px;
+  font-size: 1.2rem;
+  color: white;
+}
+
+select {
+  padding: 5px 20px;
+  margin: 0 5px;
+  border-radius: 5px;
+  border: transparent solid 2px;
+  border-bottom: var(--color-3) solid 2px;
+  background-color: var(--color-1);
+  color: white;
+}
+
+select option {
+  background-color: transparent;
+}

@@ -1,0 +1,102 @@
+<%- include("partials/header") %>
+
+<div class="intro">
+  <h2>Register</h2>
+  <form action="/register" method="post">
+    <div class="input">
+      <input
+        type="text"
+        name="fullName"
+        id="fullName"
+        placeholder="Full Name"
+        required
+      />
+    </div>
+    <div class="input">
+      <input
+        type="text"
+        name="username"
+        id="username"
+        placeholder="Username"
+        required
+      />
+    </div>
+    <div class="input">
+      <input
+        type="password"
+        name="password"
+        id="password"
+        minlength="12"
+        placeholder="Password"
+        required
+        pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{10,}$"
+      />
+      <small
+        >Minimum 10 characters, one uppercase letter, one lowercase letter, one
+        digit, and one special character.
+      </small>
+    </div>
+    <div class="input">
+      <input
+        type="email"
+        id="email"
+        name="email"
+        placeholder="Email Address"
+        required
+      />
+    </div>
+    <div class="input">
+      <input
+        type="number"
+        id="phone"
+        name="phone"
+        placeholder="Contact Number"
+        required
+      />
+    </div>
+    <div class="input select">
+      <label for="year">Course</label>
+      <select required name="course" id="course">
+        <option value="bcom-p">B. Com (P)</option>
+        <option value="bcom-h">B. Com (H)</option>
+        <option value="biochem">B. Sc. (H) Biochemistry</option>
+        <option value="bioscience">B. Sc. (H) Biological Sciences</option>
+        <option value="chemistry">B. Sc. (H) Chemistry</option>
+        <option value="botany">B. Sc. (H) Botany</option>
+        <option value="electronics">B. Sc. (H) Electronics</option>
+        <option value="maths">B. Sc. (H) Mathematics</option>
+        <option value="lifescience">B. Sc. (H) Life Sciences</option>
+        <option value="physics">B. Sc. (H) Physics</option>
+        <option value="stats">B. Sc. (H) Statistics</option>
+        <option value="zoology">B. Sc. (H) Zoology</option>
+        <option value="economics">B. A. (H) Economics</option>
+        <option value="english">B. A. (H) English</option>
+        <option value="hindi">B. A. (H) Hindi</option>
+        <option value="sanskrit">B. A. (H) Sanskrit</option>
+        <option value="history">B. A. (H) History</option>
+        <option value="polscience">B. A. (H) Political Science</option>
+        <option value="socio">B. A. (H) Sociology</option>
+        <option value="baprog">B. A. (P))</option>
+      </select>
+    </div>
+    <div class="input select">
+      <label for="year">Year of Study</label>
+      <select required name="year" id="year">
+        <option value="1">I</option>
+        <option value="2">II</option>
+        <option value="3">III</option>
+      </select>
+    </div>
+    <div class="input">
+      <input type="number" name="rollNo" id="rollNo" placeholder="Roll No" />
+    </div>
+    <button class="btn btn-lg btn-warning pl-4 pr-4" type="submit">
+      Submit
+    </button>
+  </form>
+</div>
+<h5 class="pseudo-footer">
+  &copy;Boolean, Tech Club, 2020. All Rights Reserved.
+</h5>
+
+<!-- <%- include("partials/footer") %> -->
