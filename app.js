@@ -12,7 +12,7 @@ const passportLocalMongoose = require("passport-local-mongoose");
 const courses = require("./seeds/courses");
 const userSchema = require("./models/user");
 const teamSchema = require("./models/team");
-const { readFile } = require("fs");
+const questionsSchema = require("./models/questions");
 
 require("dotenv").config();
 
@@ -55,6 +55,7 @@ userSchema.plugin(passportLocalMongoose);
 
 const User = new mongoose.model("User", userSchema);
 const Team = new mongoose.model("Team", teamSchema);
+const Question = new mongoose.model("Question", questionsSchema);
 
 passport.use(User.createStrategy());
 
@@ -143,12 +144,19 @@ app
   .route("/admin-home")
   .get((req, res) => {
     if (req.isAuthenticated() && req.user.admin === true) {
-      const allUsers = User.find({}, (err, users) => {
+      User.find({}, (err, users) => {
         if (err) {
           console.log(err);
         } else {
-          res.render("admin-home", {
-            users: users,
+          Question.find({}, (err, questions) => {
+            if (err) {
+              console.log(err);
+            } else {
+              res.render("admin-home", {
+                users: users,
+                questions: questions,
+              });
+            }
           });
         }
       });
@@ -193,6 +201,28 @@ app.get("/logout", (req, res) => {
 app.get("/delete/:id", (req, res) => {
   const user_id = req.params.id;
   User.findByIdAndRemove(user_id, (err) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.redirect("/admin-home");
+    }
+  });
+});
+
+app.post("/question/add", (req, res) => {
+  const question = new Question({
+    question: req.body.question,
+    answer: req.body.answer,
+  });
+
+  question.save();
+
+  res.redirect("/admin-home");
+});
+
+app.get("/question/delete/:id", (req, res) => {
+  const question_id = mongoose.mongo.ObjectID(req.params.id);
+  Question.findByIdAndRemove(question_id, (err) => {
     if (err) {
       console.log(err);
     } else {

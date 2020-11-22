@@ -21,22 +21,22 @@
         required
       />
     </div>
-    <div class="input">
+    <div class="input" style="margin-bottom: 0">
       <input
         type="password"
         name="password"
         id="password"
-        minlength="12"
+        minlength="10"
         placeholder="Password"
         required
         pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{10,}$"
       />
       <i class="fas fa-eye show-pass"></i>
-      <small
-        >Minimum 10 characters, one uppercase letter, one lowercase letter, one
-        digit, and one special character.
-      </small>
     </div>
+    <small
+      >Minimum 10 characters, one uppercase letter, one lowercase letter, one
+      digit, and one special character.
+    </small>
     <div class="input">
       <input
         type="email"
@@ -53,10 +53,12 @@
         name="phone"
         placeholder="Contact Number"
         required
+        minlength="10"
+        maxlength="10"
       />
     </div>
     <div class="input select">
-      <label for="year">Course</label>
+      <label for="year" class="mb-2">Course</label><br />
       <select required name="course" id="course">
         <option value="1">B. Com (P)</option>
         <option value="2">B. Com (H)</option>
@@ -89,9 +91,15 @@
       </select>
     </div>
     <div class="input">
-      <input type="number" name="rollNo" id="rollNo" placeholder="Roll No" />
+      <input
+        type="number"
+        name="rollNo"
+        id="rollNo"
+        placeholder="Roll No"
+        required
+      />
     </div>
-    <button class="btn btn-lg btn-warning pl-4 pr-4" type="submit">
+    <button class="btn custom-style-btn-1 pl-4 pr-4" type="submit">
       Submit
     </button>
   </form>
