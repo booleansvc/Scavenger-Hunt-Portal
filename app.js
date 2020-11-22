@@ -142,8 +142,9 @@ app.get("/user-home", (req, res) => {
 
 app
   .route("/admin-home")
-  .get((req, res) => {
+  .get(async (req, res) => {
     if (req.isAuthenticated() && req.user.admin === true) {
+      var myUsers, myQuestions, myTeams;
       User.find({}, (err, users) => {
         if (err) {
           console.log(err);
@@ -152,9 +153,18 @@ app
             if (err) {
               console.log(err);
             } else {
-              res.render("admin-home", {
-                users: users,
-                questions: questions,
+              myQuestions = questions;
+              Team.find({}, (err, teams) => {
+                if (err) {
+                  console.log(err);
+                } else {
+                  myTeams = teams;
+                  res.render("admin-home", {
+                    users: myUsers,
+                    questions: myQuestions,
+                    teams: myTeams,
+                  });
+                }
               });
             }
           });
@@ -164,7 +174,7 @@ app
       res.render("login");
     }
   })
-  .post((req, res) => {
+  .post(async (req, res) => {
     User.find({}, async (err, users) => {
       if (err) {
         console.log(err);
@@ -187,6 +197,40 @@ app
               }
             }
           );
+        }
+
+        const teams =
+          (users.length - 1) % 5 > 0
+            ? Math.floor((users.length - 1) / 5) + 1
+            : Math.floor((users.length - 1) / 5);
+
+        for (var j = 1; j <= teams; j++) {
+          await User.find({ group: "team-" + j }, async (err, results) => {
+            if (err) {
+              console.log(err);
+            } else {
+              var currentUsers = [];
+              for (var _ = 0; _ < results.length; _++) {
+                currentUsers.push(results[_].username);
+              }
+              await Team.findOneAndUpdate(
+                { teamName: "team-" + j },
+                { noOfMembers: results.length, memberNames: currentUsers },
+                {
+                  upsert: true,
+                  new: true,
+                  setDefaultsOnInsert: true,
+                },
+                async (err) => {
+                  if (err) {
+                    console.log(err);
+                  } else {
+                    console.log("Done");
+                  }
+                }
+              );
+            }
+          });
         }
       }
     });

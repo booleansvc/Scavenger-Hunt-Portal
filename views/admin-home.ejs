@@ -11,7 +11,8 @@
   <h1>Admin Console<br /></h1>
   <div class="tabs">
     <a href="#Questions">Questions</a>
-    <a href="#users-teams">Users & Teams</a>
+    <a href="#Teams">Teams</a>
+    <a href="#users-teams">Users</a>
   </div>
   <div id="Questions">
     <h2>Questions</h2>
@@ -35,7 +36,24 @@
         </button></a
       >
     </div>
-    <% }); %>
+    <% }) %>
+  </div>
+  <div id="Teams">
+    <div class="row">
+      <% teams.forEach((team) => { %>
+      <div class="col-lg-3 col-md-4 user-col">
+        <div class="user-box">
+          <h2><%=team.teamName %></h2>
+          <p>No of Members: <%=team.noOfMembers%></p>
+          <ul>
+            <% team.memberNames.forEach((member)=> { %>
+            <li><%= member %></li>
+            <% }) %>
+          </ul>
+        </div>
+      </div>
+      <% }) %>
+    </div>
   </div>
   <div id="users-teams">
     <h2>Users & Teams</h2>
