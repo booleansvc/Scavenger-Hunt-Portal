@@ -12,7 +12,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: "Roboto", Arial, Helvetica, sans-serif;
-  background-color: var(--color-2);
+  background-color: var(--color-5);
   box-sizing: border-box;
 }
 
@@ -91,6 +91,14 @@ h3 {
   border-radius: 10px;
 }
 
+.input #password ~ .show-pass {
+  position: absolute;
+  right: 10px;
+  z-index: 2;
+  top: 20%;
+  font-size: 1.2rem;
+}
+
 .input label {
   padding: 0 7px;
   font-size: 1.2rem;
@@ -124,18 +132,18 @@ select option {
   background-color: transparent;
 }
 
-.admin-console {
+.console {
   background-color: white;
   padding: 30px;
   margin: 40px auto;
   border-radius: 20px;
 }
 
-.admin-console > div {
+.console > div {
   margin: 50px auto;
 }
 
-.admin-console table {
+/* .admin-console table {
   border: solid 1px var(--color-5);
   padding: 5px;
   width: 100%;
@@ -153,7 +161,7 @@ th {
 
 td {
   padding: 5px 10px;
-}
+} */
 
 .admin-console h1 {
   text-align: center;

@@ -12,6 +12,7 @@ const passportLocalMongoose = require("passport-local-mongoose");
 const courses = require("./seeds/courses");
 const userSchema = require("./models/user");
 const teamSchema = require("./models/team");
+const { readFile } = require("fs");
 
 require("dotenv").config();
 
@@ -128,48 +129,74 @@ app
     );
   });
 
-app.get("/user-home", (req, res) => {});
-
-app.get("/admin-home", (req, res) => {
-  if (req.isAuthenticated() && req.user.admin === true) {
-    const allUsers = User.find({}, (err, users) => {
-      if (err) {
-        console.log(err);
-      } else {
-        res.render("admin-home", {
-          users: users,
-        });
-      }
+app.get("/user-home", (req, res) => {
+  if (req.isAuthenticated()) {
+    res.render("user-home", {
+      user: req.user,
     });
   } else {
-    res.render("login");
+    res.redirect("/");
   }
 });
 
-app.post("/admin-home", (req, res) => {
-  User.find({}, async (err, users) => {
+app
+  .route("/admin-home")
+  .get((req, res) => {
+    if (req.isAuthenticated() && req.user.admin === true) {
+      const allUsers = User.find({}, (err, users) => {
+        if (err) {
+          console.log(err);
+        } else {
+          res.render("admin-home", {
+            users: users,
+          });
+        }
+      });
+    } else {
+      res.render("login");
+    }
+  })
+  .post((req, res) => {
+    User.find({}, async (err, users) => {
+      if (err) {
+        console.log(err);
+      } else {
+        for (var i = 0; i < users.length; i++) {
+          const username = users[i].username;
+          await User.findOneAndUpdate(
+            {
+              username: username,
+            },
+            {
+              group: req.body[username],
+            },
+            {
+              returnNewDocument: false,
+            },
+            (err, result) => {
+              if (err) {
+                console.log(err);
+              }
+            }
+          );
+        }
+      }
+    });
+    res.redirect("/admin-home");
+  });
+
+app.get("/logout", (req, res) => {
+  req.logOut();
+  res.redirect("/");
+});
+
+app.get("/delete/:id", (req, res) => {
+  const user_id = req.params.id;
+  User.findByIdAndRemove(user_id, (err) => {
     if (err) {
       console.log(err);
     } else {
-      for (var i = 0; i < users.length; i++) {
-        const username = users[i].username;
-        await User.findOneAndUpdate(
-          {
-            username: username,
-          },
-          {
-            group: req.body[username],
-          },
-          {
-            returnNewDocument: false,
-          },
-          (err, result) => {
-            if (err) {
-              console.log(err);
-            }
-          }
-        );
-      }
+      res.redirect("/admin-home");
     }
   });
 });
